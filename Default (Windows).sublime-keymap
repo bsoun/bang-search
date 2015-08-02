@@ -1,0 +1,7 @@
+[
+     {"keys": ["alt+super+b"], "command": "bang_search"},
+     {"keys": ["shift+alt+super+b","shift+alt+super+d"], "command": "bang_search","args": {"search_method": "@def"}},
+     {"keys": ["ctrl+super+b"], "command": "bang_search_input"},
+     {"keys": ["ctrl+shift+super+b","ctrl+shift+super+y"], "command": "bang_search_input","args": {"search_method": "!yt"}},
+     {"keys": ["ctrl+shift+super+b", "ctrl+shift+super+d"], "command": "bang_search_input","args": {"search_method": "@def"}}
+]

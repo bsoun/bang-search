@@ -1,0 +1,4 @@
+[
+  { "caption": "Bang Search", "command": "bang_search" },
+  { "caption": "Bang Search Input", "command": "bang_search_input" }
+]

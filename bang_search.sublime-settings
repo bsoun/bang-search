@@ -1,0 +1,116 @@
+{
+  "display_bang_in_panel": true,
+  "silent_error": false,
+  "definitions": 
+    {
+      "!gt": {
+        "type": "duckduckgo",
+        "caption": "Google Translate"
+      },
+      "!gi": {
+        "type": "duckduckgo",
+        "caption": "Google Image"
+      },
+      "!python27": {
+        "type": "duckduckgo",
+        "caption": "Python 2.7"
+      },
+      "!gsc": {
+        "type": "duckduckgo",
+        "caption": "Google Scholar"
+      },
+      "!gist": {
+        "type": "duckduckgo",
+        "caption": "Gist"
+      },
+      "!github": {
+        "type": "duckduckgo",
+        "caption": "Github"
+      },
+      "!stackoverflow": {
+        "type": "duckduckgo",
+        "caption": "Stackoverflow"
+      },
+      "!py3": {
+        "type": "duckduckgo",
+        "caption": "Documentation python 3"
+      },
+      "!w": {
+        "type": "duckduckgo",
+        "caption": "Wikipedia"
+      },
+      "!yt": {
+        "type": "duckduckgo",
+        "caption": "Youtube"
+      },      
+      "@g30": {
+        "type": "custom",
+        "caption": "Google Search <1 month",
+        "url": "https://google.com/#q={{q}}&tbs=qdr:m"
+      },
+      "@g365": {
+        "type": "custom",
+        "caption"  : "Google Search  <1 year",
+        "url"      : "https://google.com/#q={{q}}&tbs=qdr:y"
+          },
+      "@g1": {
+        "type": "custom",
+        "caption"  : "Google Search <1 day",
+        "url"      : "https://google.com/#q={{q}}&tbs=qdr:d"
+          },
+      "@g7": {
+        "type": "custom",
+        "caption"  : "Google Search  <1 week",
+        "url"      : "https://google.com/#q={{q}}&tbs=qdr:w"
+          },      
+      "@def": {
+        "type": "custom",
+        "caption": "Google Definition",
+        "url": "https://google.com/#q=define:{{q}}"
+      },
+      "@ipynbViewer": {      
+      "type": "custom",
+      "caption": "iPyNotebookViewer",
+      "url": "https://google.com/#q={{q}} site:nbviewer.ipython.org/github/"
+      },
+      "!careerbuilder": {
+        "type": "hidden",
+        "caption"  : "CarrerBuild",
+        "url"      : "https://duckduckgo.com/?q=!careerbuilder {{q}}"
+          },      
+      "!indeed": {
+        "type": "hidden",
+        "caption"  : "Indeed",
+        "url"      : "https://duckduckgo.com/?q=!indeed {{q}}"
+          },      
+      "!monster": {
+        "type": "hidden",
+        "caption"  : "Monster",
+        "url"      : "https://duckduckgo.com/?q=!monster {{q}}"
+          },      
+      "!simplyhired": {
+        "type": "hidden",
+        "caption"  : "Simply hired",
+        "url"      : "https://duckduckgo.com/?q=!simplyhired {{q}}"
+          },      
+      "!slideshare": {
+        "type": "hidden",
+        "caption"  : "slideshare",
+        "url"      : "https://duckduckgo.com/?q=!slideshare {{q}}"
+          },      
+      "@speakerdeck": {
+        "type": "hidden",
+        "caption"  : "speakerdeck",
+        "url"      : "https://speakerdeck.com/search?utf8=✓&q= {{q}}"
+          },      
+      "#PY2": {
+        "type": "group",
+        "caption": "python2 general search",
+        "banglist": [
+          "!python27",
+          "!gist",
+          "@ipynbViewer"
+        ]
+      }
+    } 
+}
