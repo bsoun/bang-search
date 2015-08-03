@@ -72,7 +72,7 @@ The *definition* contain your search request
         "caption": "python2 general search",
         "banglist": [
           "!python27",
-          "@ipynbViewer"}
+          "@ipynbViewer"]}
 }
 ]
 ```
