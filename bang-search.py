@@ -1,61 +1,56 @@
+
+
 import webbrowser
 import sublime
 import sublime_plugin
- 
+
 DUCKDUCK_BANG_URL = "https://duckduckgo.com/?q={{bang}} {{q}}"
+CONFIG_FILE = "bang_search.sublime-settings"
 
-searchDict = sublime.load_settings("bang_search.sublime-settings")\
-            .get("definitions")
-flagFullCaption = sublime.load_settings("bang_search.sublime-settings")\
-            .get("display_bang_in_panel")
-silentError = sublime.load_settings("bang_search.sublime-settings")\
-            .get("silent_error")            
-
-stringToSearch = None
-bangToSearch = None # define for direct input search with args
-bangList = []
-captionList = []
-
- 
 # Create the caption in the quick panel with or without the bang
-def create_caption(bang,caption):
+def create_caption(bang,caption,flagFC):
+    # get config file
     panel_label=""
-    if flagFullCaption:
+    if flagFC:
         panel_label = bang.ljust(15, " ") +" : " + caption
     else:
         panel_label = caption
     return panel_label
 
 # Display warning
-def bang_warning(text):
-    print(silentError)
-    if silentError:
+def bang_warning(text,flagError):
+    if flagError:
         sublime.status_message(text)
     else:
         sublime.message_dialog(text)
 
-# Add url to duckduck type
 
-for name,content in searchDict.items():
-    if(searchDict[name]['type'] == "duckduckgo"):
-        content['url']=DUCKDUCK_BANG_URL.replace("{{bang}}",name)
-# Add list(url) to group type
-for name,content in searchDict.items():
-    if(searchDict[name]['type'] == "group"):
-        url=[]
-        for i in content['banglist']:
-            if (i in searchDict):
-                url.append(searchDict[i].get('url'))
-        content['url']=url
-    # Create bangList and captionList for quickPannel
-for name,content in searchDict.items():
-    if(searchDict[name]['type'] != "hidden"):
-        bangList.append(name)
-        captionList.append(create_caption(name,content['caption']))
-# sort list the two list, based on caption list
-captionList, bangList = zip(*sorted(zip(captionList,bangList)))
+# From config file retrieve one list for caption and one list for bang
+def init_lists(searchDict,flagFC):
+  bangList = []
+  captionList = []
+  for name,content in searchDict.items():
+      if(searchDict[name]['type'] == "duckduckgo"):
+          content['url']=DUCKDUCK_BANG_URL.replace("{{bang}}",name)
+  # Add list(url) to group type
+  for name,content in searchDict.items():
+      if(searchDict[name]['type'] == "group"):
+          url=[]
+          for i in content['banglist']:
+              if (i in searchDict):
+                  url.append(searchDict[i].get('url'))
+          content['url']=url
+      # Create bangList and captionList for quickPannel
+  for name,content in searchDict.items():
+      if(searchDict[name]['type'] != "hidden"):
+          bangList.append(name)
+          captionList.append(create_caption(name,content['caption'],flagFC))
+  # sort list the two list, based on caption list
+  captionList, bangList = zip(*sorted(zip(captionList,bangList)))
 
-def searchByBang(search_string, bang):
+  return captionList, bangList
+
+def searchByBang(search_string, bang, searchDict):
     if isinstance(searchDict[bang]['url'],list):
         # groupsearch loop to open several tabs
         for i in searchDict[bang]['url']:
@@ -65,13 +60,21 @@ def searchByBang(search_string, bang):
         # duckduck and custom cases
         searchUrl = searchDict[bang]['url'].replace("{{q}}",search_string)
         webbrowser.open_new_tab(searchUrl)
- 
- 
-  
- 
+
+def init(self):
+  self.stringToSearch = None
+  self.bangToSearch = None
+  self.bangList = []
+  self.captionList = []
+  self.flagFullCaption = sublime.load_settings(CONFIG_FILE).get("display_bang_in_panel")
+  self.silentError = sublime.load_settings(CONFIG_FILE).get("silent_error")
+  self.searchDict = sublime.load_settings(CONFIG_FILE).get("definitions")
+  self.captionList, self.bangList  = init_lists(self.searchDict,self.flagFullCaption)
+
 class BangSearchCommand(sublime_plugin.TextCommand):
- 
+
     def run(self, edit,**args):
+        init(self)
         querys = []
         for region in self.view.sel():
             if region.empty():
@@ -79,71 +82,69 @@ class BangSearchCommand(sublime_plugin.TextCommand):
                 word = self.view.word(region)
                 if not word.empty():
                     querys.append(self.view.substr(word))
-                else:
-                # append the selection
-                    if not region.empty():
-                        querys.append(self.view.substr(region))
+            else:
+                querys.append(self.view.substr(region))
+
         if len(querys) != 0:
             self.stringToSearch = " ".join(querys)
             if args:
-                if (args["search_method"] in searchDict):
+                if (args["search_method"] in self.searchDict):
                     self.bangToSearch = args["search_method"]
-                    searchByBang(self.stringToSearch,self.bangToSearch)
+                    searchByBang(self.stringToSearch,self.bangToSearch, self.searchDict)
                 else:
-                    bang_warning("%s is not defined !!!" %(args["search_method"]))                    
+                    bang_warning("%s is not defined !!!" %(args["search_method"]),self.silentError)
             else:
-                sublime.set_timeout(lambda:self.view.window().show_quick_panel(captionList, self.on_done,sublime.MONOSPACE_FONT),1)
+                sublime.set_timeout(lambda:self.view.window().show_quick_panel(self.captionList, self.on_done,sublime.MONOSPACE_FONT),1)
         else:
-            bang_warning(" Nothing to search !")
- 
+            bang_warning(" Nothing to search !",self.silentError)
+
     def on_done(self, index):
         if index == -1:
-            bang_warning("Search canceled")
+            bang_warning("Search canceled",self.silentError)
         else:
-            searchByBang(self.stringToSearch,bangList[index])
- 
+            searchByBang(self.stringToSearch,self.bangList[index],self.searchDict)
+
     def on_cancel(self,arg):
         pass
 
     def on_change(self,arg):
         pass
- 
+
 class BangSearchInputCommand(sublime_plugin.TextCommand):
+
     def run(self,edit, **args):
+        init(self)
         if args:
-            if (args["search_method"] in searchDict):
+            if (args["search_method"] in self.searchDict):
                 self.bangToSearch = args["search_method"]
-                mylabel = searchDict[args["search_method"]]['caption'] + " : "
+                mylabel = self.searchDict[args["search_method"]]['caption'] + " : "
                 self.view.window().show_input_panel(mylabel, '',self.direct_done, None, None)
             else:
-                bang_warning("%s is not defined !!!" %(args["search_method"]))
+                bang_warning("%s is not defined !!!" %(args["search_method"]),self.silentError)
         else:
             mylabel = "Bang search : "
             self.view.window().show_input_panel(mylabel, '',self.panel_done, None, None)
- 
+
     def panel_done(self, arg):
         if arg == -1:
-            bang_warning("Search canceled")
+            bang_warning("Search canceled",self.silentError)
         else:
             self.stringToSearch = arg
-            self.view.window().show_quick_panel(captionList,self.child_done, sublime.MONOSPACE_FONT)
- 
+            self.view.window().show_quick_panel(self.captionList,self.child_done, sublime.MONOSPACE_FONT)
+
     def direct_done(self, arg):
         self.stringToSearch = arg
         searchByBang(self.stringToSearch,self.bangToSearch)
- 
+
     def child_done(self,index):
         if index == -1:
-            bang_warning(" Nothing to search !")
+            bang_warning(" Nothing to search !",self.silentError)
         else:
-            searchByBang(self.stringToSearch,bangList[index])
- 
+            searchByBang(self.stringToSearch,self.bangList[index], self.searchDict)
+
     def on_cancel(self,arg):
         pass
- 
+
     def on_change(self,arg):
         pass
- 
- 
-# webbrowser.get('/usr/bin/google-chrome %s').open_new_tab(searchUrl)
-# webbrowser.get('firefox %s').open_new_tab(searchUrl)
+

@@ -1,9 +1,13 @@
-Bang Search **BETA VERSION**
+Bang Search 
 =============
+**RELEASE CANDIDATE**
 
-This plugin for Sublime Text 3 allow to perform a web search from the currently selected text/word
-or from an input panel.
+This plugin for Sublime Text 3 allow to perform a web search from the currently selected text/word or from an input panel.
+
+
 Various custom or predefined search engine are declared in the bang_search.sublime-settings.
+You can add yours quite easily in the `bang-search.sublime-settings`, you can prefix your bang by whatever you want except for duckduckgo, this one must be valid : !...
+
 
 There are several ways to perform your search :
 * on a selected text/word :
@@ -32,9 +36,9 @@ Or you can download the package as a zip file [https://github.com/bsoun/bang-sea
 
 ## SETTINGS
 The two first parameters control the estethic
-```json
+```
 {
-	// Display the bang before the caption of your predefine search engine
+	  // Display the bang before the caption of your predefine search engine
     "display_bang_in_panel": true,
     // If true, display alert message in the bottom status panel
     // If false, a dialog box show you the warning message
@@ -43,14 +47,39 @@ The two first parameters control the estethic
 ```
 The *definition* contain your search request
 ```json
+[
 {
-** TO COMPLETE **
+     "!gt": {
+        "type": "duckduckgo",
+        "caption": "Google Translate"
+      },
+      "!python27": {
+        "type": "duckduckgo",
+        "caption": "Python 2.7"
+      },
+      "@ipynbViewer": {      
+      "type": "custom",
+      "caption": "iPyNotebookViewer",
+      "url": "https://google.com/#q={{q}} site:nbviewer.ipython.org/github/"
+      },   
+      "@speakerdeck": {
+        "type": "hidden",
+        "caption"  : "speakerdeck",
+        "url"      : "https://speakerdeck.com/search?utf8=✓&q= {{q}}"
+          },      
+      "#PY2": {
+        "type": "group",
+        "caption": "python2 general search",
+        "banglist": [
+          "!python27",
+          "@ipynbViewer"
 }
+]
 ```
 There are 3 types of request :
-- duckduckgo : a bang style [duckduckgo][5] search request
-- custom : any kind of site or search engine, google [i.e.][4]
-- hidden : a custom request which doesn't appear in the quick panel (use in command arg, or group call)
+- duckduckgo : a bang style [duckduckgo][5] search request, you have give a valid !bang
+- custom : any kind of site or search engine, google [i.e.][4], {{q}} will be replace by your search 
+- hidden : a custom request which doesn't appear in the quick panel (can be use in command arg, or group call)
 - group : a list of bang [duckduckgo|custom|hidden] defined in your bang-search.sublime-settings
 
 
@@ -58,19 +87,35 @@ You can edit the settings by going to Preferences -> Package Settings -> Bang Se
 
 ##Usage
 
-Place the cursor inside a word or select some text and press `Ctrl+Super+B` or `Alt+Super+B`.
+Get the quick panel to choose your search query :
+- Place the cursor inside a word or select some text and press `Alt+Super+B`
+![quick_panel][quick_panel]
 
-Context Menu
-![context menu][4]
+- Press `Ctrl+Super+B` to get the input panel
+![input_panel][input_panel]
 
-Command Pallette
 
-![pallete][5]
 
-![pallete][6]
+Use a personal key binding with args search-method:
+
+- Launch directly the @def query from your selected text.
+```
+{"keys": ["shift+alt+super+b","shift+alt+super+d"], "command": "bang_search","args": {"search_method": "@def"}},
+```
+- Launch directly the @def query after opening the input text.
+```
+{"keys": ["ctrl+shift+super+b", "ctrl+shift+super+d"], "command": "bang_search_input","args": {"search_method": "@def"}}
+```
+![input_definition][input_definition]
+
 
   [1]: http://www.sublimetext.com
   [2]: https://sublime.wbond.net/
   [3]: https://github.com/bsoun/bang-search/archive/master.zip
   [4]: http://www.googleguide.com/advanced_operators_reference.html
   [5]: https://duckduckgo.com/bang
+
+
+[quick_panel]: https://github.com/bsoun/bang-search/doc/quick_panel.gif
+[input_panel]: https://github.com/bsoun/bang-search/doc/input_panel.gif
+[input_definition]:https://github.com/bsoun/bang-search/doc/input_definition.gif
