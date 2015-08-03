@@ -72,7 +72,7 @@ The *definition* contain your search request
         "caption": "python2 general search",
         "banglist": [
           "!python27",
-          "@ipynbViewer"
+          "@ipynbViewer"}
 }
 ]
 ```
@@ -116,6 +116,6 @@ Use a personal key binding with args search-method:
   [5]: https://duckduckgo.com/bang
 
 
-[quick_panel]: https://github.com/bsoun/bang-search/doc/quick_panel.gif
-[input_panel]: https://github.com/bsoun/bang-search/doc/input_panel.gif
-[input_definition]:https://github.com/bsoun/bang-search/doc/input_definition.gif
+[quick_panel]: https://raw.githubusercontent.com/bsoun/bang-search/master/doc/quick_panel.gif
+[input_panel]: https://raw.githubusercontent.com/bsoun/bang-search/master/doc/input_panel.gif
+[input_definition]:https://raw.githubusercontent.com/bsoun/bang-search/master/doc/input_definition.gif
