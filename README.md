@@ -2,11 +2,11 @@ Bang Search
 =============
 **RELEASE CANDIDATE**
 
-This plugin for Sublime Text 3 allow to perform a web search from the currently selected text/word or from an input panel.
+This plugin for Sublime Text 3 allow to perform a web search from the currently selected text/word or from an input panel from **your predifined requests** in **one or several browser tabs**.
 
 
-Various custom or predefined search engine are declared in the bang_search.sublime-settings.
-You can add yours quite easily in the `bang-search.sublime-settings`, you can prefix your bang by whatever you want except for duckduckgo, this one must be valid : !...
+Various custom or predefined search engine are declared in the `bang-search.sublime-settings`.
+You can add yours quite easily in this file , you can prefix your bang by whatever you want except for duckduckgo, this one must be valid : !...
 
 
 There are several ways to perform your search :
@@ -35,17 +35,20 @@ Or you can download the package as a zip file [https://github.com/bsoun/bang-sea
 
 
 ## SETTINGS
-The two first parameters control the estethic
-```
+The two first parameters control the display options :
+- Display the bang before the caption of your predefine search engine in the quick panel
+- The second one :   
+	* If true, display alert message in the bottom status panel
+	* If false, a dialog box show you the warning message
+```json
+[
 {
-	  // Display the bang before the caption of your predefine search engine
     "display_bang_in_panel": true,
-    // If true, display alert message in the bottom status panel
-    // If false, a dialog box show you the warning message
     "silent_error": true,
 }
+]
 ```
-The *definition* contain your search request
+The *definitions* contain your search requests :
 ```json
 [
 {
@@ -77,10 +80,10 @@ The *definition* contain your search request
 ]
 ```
 There are 3 types of request :
-- duckduckgo : a bang style [duckduckgo][5] search request, you have give a valid !bang
-- custom : any kind of site or search engine, google [i.e.][4], {{q}} will be replace by your search 
-- hidden : a custom request which doesn't appear in the quick panel (can be use in command arg, or group call)
-- group : a list of bang [duckduckgo|custom|hidden] defined in your bang-search.sublime-settings
+- **duckduckgo** : a bang style [duckduckgo][5] search request, you have give a valid !bang
+- **custom** : any kind of site or search engine, google [i.e.][4], {{q}} will be replace by your search 
+- **hidden** : a custom request which doesn't appear in the quick panel (can be use in command arg, or group call)
+- **group** : a list of bang [duckduckgo|custom|hidden] defined in your bang-search.sublime-settings
 
 
 You can edit the settings by going to Preferences -> Package Settings -> Bang Search -> Settings - User
