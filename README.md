@@ -48,8 +48,6 @@ The third parameter contain the list of browser see bleow)
 {
     "display_bang_in_panel": true,
     "silent_error": true,
-    // This list contain browsers, the first will be used by webbrowser
-    // See below how to know your browsers and define new ones
     "browsers_list": ["default","firefox","google-chrome"],
 }
 ]
@@ -105,7 +103,8 @@ You can edit the settings by going to Preferences -> Package Settings -> Bang Se
 
 The lib used to open a new tab is webbrowser.py. Only the first element of browsers_list will be used, the others are here to 
 allow quick change in your configuration file. The "default" value refer to the None settings in webbrowser.py corresponding to the default browser.
-**THE FOLLOWING CONFIGURATION IS AT YOUR OWN RISK, let default **
+
+**THE FOLLOWING CONFIGURATION IS AT YOUR OWN RISK, let "default" if you have any doubt.**
 
 ###Identify already defined browsers by webbrowser.py
 
