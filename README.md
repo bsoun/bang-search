@@ -1,6 +1,7 @@
 Bang Search 
 =============
-**RELEASE CANDIDATE**
+
+**Version : 1.1.0**
 
 This plugin for Sublime Text 3 allow to perform a web search from the currently selected text/word or from an input panel.
 
@@ -35,15 +36,20 @@ Or you can download the package as a zip file [https://github.com/bsoun/bang-sea
 
 
 ## SETTINGS
-The two first parameters control the estethic
+The two first parameters control the some display options
 ```
+[
 {
 	  // Display the bang before the caption of your predefine search engine
     "display_bang_in_panel": true,
     // If true, display alert message in the bottom status panel
     // If false, a dialog box show you the warning message
     "silent_error": true,
+    // This list contain browsers, the first will be used by webbrowser
+    // See below how to know your browsers and define new ones
+    "browsers_list": ["default","firefox","google-chrome"],
 }
+]
 ```
 The *definition* contain your search request
 ```json
@@ -56,6 +62,10 @@ The *definition* contain your search request
       "!python27": {
         "type": "duckduckgo",
         "caption": "Python 2.7"
+      },
+      "&gh": {
+        "type": "qwant",
+        "caption": "Github"
       },
       "@ipynbViewer": {      
       "type": "custom",
@@ -76,14 +86,45 @@ The *definition* contain your search request
 }
 ]
 ```
-There are 3 types of request :
-- duckduckgo : a bang style [duckduckgo][5] search request, you have give a valid !bang
-- custom : any kind of site or search engine, google [i.e.][4], {{q}} will be replace by your search 
-- hidden : a custom request which doesn't appear in the quick panel (can be use in command arg, or group call)
-- group : a list of bang [duckduckgo|custom|hidden] defined in your bang-search.sublime-settings
+There are 4 types of request :  
+* **duckduckgo** : a bang style [duckduckgo][5] search request, you have to give a valid !bang
+* **qwant** : a qwick style [qwant][6] search request, you have to give a valid &qwick
+* **custom** : any kind of site or search engine, google [i.e.][4], {{q}} will be replace by your search 
+* **hidden** : a custom request which doesn't appear in the quick panel (can be use in command arg, or group call)
+* **group** : a list of bang [duckduckgo|custom|hidden] defined in your bang-search.sublime-settings
 
 
 You can edit the settings by going to Preferences -> Package Settings -> Bang Search -> Settings - User
+
+##Browser configuration
+
+The lib used to open a new tab is webbrowser.py. Only the first element of browsers_list will be used, the others are here to 
+allow quick change in your configuration file. The "default" value refer to the None settings in webbrowser.py corresponding to the default browser.
+**THE FOLLOWING CONFIGURATION IS AT YOUR OWN RISK, let default **
+
+###Identify already defined browsers by webbrowser.py
+
+Open a console : View > Show console
+
+And enter the following code to identify which browser you can use :
+```
+import webbrowser; print(webbrowser._browsers)
+```
+
+###Register a browser in webbrowser.py
+
+Open a console : View > Show console
+And enter the following code to [register](https://docs.python.org/3/library/webbrowser.html#webbrowser.register) a browser. Here is a sample for windows, you have to define an alias and the correct path to the choosed browser.
+```
+import webbrowser; webbrowser.register('google-chrome', None, webbrowser.BackgroundBrowser("C:\\Program Files (x86)\\Google\\Chrome\\Application\\chrome.exe")
+```
+
+###Choose the browser for Bang-Search
+
+In the bang_search.sublime-settings, place your _default_ browser in first place in the list.
+```
+"browsers_list": ["firefox","default","google-chrome"],
+```
 
 ##Usage
 
@@ -100,11 +141,19 @@ Use a personal key binding with args search-method:
 
 - Launch directly the @def query from your selected text.
 ```
-{"keys": ["shift+alt+super+b","shift+alt+super+d"], "command": "bang_search","args": {"search_method": "@def"}},
+{
+  "keys": ["shift+alt+super+b","shift+alt+super+d"], 
+  "command": "bang_search",
+  "args": {"search_method": "@def"}
+},
 ```
 - Launch directly the @def query after opening the input text.
 ```
-{"keys": ["ctrl+shift+super+b", "ctrl+shift+super+d"], "command": "bang_search_input","args": {"search_method": "@def"}}
+{
+  "keys": ["ctrl+shift+super+b", "ctrl+shift+super+d"], 
+  "command": "bang_search_input",
+  "args": {"search_method": "@def"}
+}
 ```
 ![input_definition][input_definition]
 
@@ -114,6 +163,7 @@ Use a personal key binding with args search-method:
   [3]: https://github.com/bsoun/bang-search/archive/master.zip
   [4]: http://www.googleguide.com/advanced_operators_reference.html
   [5]: https://duckduckgo.com/bang
+  [6]: https://www.qwant.com/qwick
 
 
 [quick_panel]: https://raw.githubusercontent.com/bsoun/bang-search/master/doc/quick_panel.gif

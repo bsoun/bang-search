@@ -15,6 +15,12 @@
                         [
                             {
                                 "command": "open_file",
+                                "args": {"file": "${packages}/bang-search/README.md"},
+                                "caption": "Readme"
+                            },
+                            { "caption": "-" },
+                            {
+                                "command": "open_file",
                                 "args": {"file": "${packages}/bang-search/bang_search.sublime-settings"},
                                 "caption": "Settings – Default"
                             },

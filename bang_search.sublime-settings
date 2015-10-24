@@ -1,6 +1,7 @@
 {
   "display_bang_in_panel": true,
   "silent_error": false,
+  "browsers_list": ["default","firefox"],
   "definitions": 
     {
       "!gt": {
@@ -42,7 +43,11 @@
       "!yt": {
         "type": "duckduckgo",
         "caption": "Youtube"
-      },      
+      },
+      "&github": {
+        "type": "qwant",
+        "caption": "Github"
+      },       
       "@g30": {
         "type": "custom",
         "caption": "Google Search <1 month",
