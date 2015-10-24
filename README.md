@@ -36,17 +36,14 @@ Or you can download the package as a zip file [https://github.com/bsoun/bang-sea
 
 
 ## SETTINGS
-<<<<<<< HEAD
-The two first parameters control the some display options
-```
-=======
+
 The two first parameters control the display options :
 - Display the bang before the caption of your predefine search engine in the quick panel
 - The second one :   
 	* If true, display alert message in the bottom status panel
 	* If false, a dialog box show you the warning message
+The third parameter contain the list of browser see bleow)
 ```json
->>>>>>> d5ed425937285229f0fab3241711bea741c9eaaa
 [
 {
     "display_bang_in_panel": true,
@@ -92,20 +89,14 @@ The *definitions* contain your search requests :
 }
 ]
 ```
-<<<<<<< HEAD
+
 There are 4 types of request :  
 * **duckduckgo** : a bang style [duckduckgo][5] search request, you have to give a valid !bang
 * **qwant** : a qwick style [qwant][6] search request, you have to give a valid &qwick
 * **custom** : any kind of site or search engine, google [i.e.][4], {{q}} will be replace by your search 
 * **hidden** : a custom request which doesn't appear in the quick panel (can be use in command arg, or group call)
 * **group** : a list of bang [duckduckgo|custom|hidden] defined in your bang-search.sublime-settings
-=======
-There are 3 types of request :
-- **duckduckgo** : a bang style [duckduckgo][5] search request, you have give a valid !bang
-- **custom** : any kind of site or search engine, google [i.e.][4], {{q}} will be replace by your search 
-- **hidden** : a custom request which doesn't appear in the quick panel (can be use in command arg, or group call)
-- **group** : a list of bang [duckduckgo|custom|hidden] defined in your bang-search.sublime-settings
->>>>>>> d5ed425937285229f0fab3241711bea741c9eaaa
+
 
 
 You can edit the settings by going to Preferences -> Package Settings -> Bang Search -> Settings - User
