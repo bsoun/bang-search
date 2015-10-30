@@ -42,7 +42,7 @@ The two first parameters control the display options :
 - The second one :   
 	* If true, display alert message in the bottom status panel
 	* If false, a dialog box show you the warning message
-The third parameter contain the list of browser see bleow)
+- The third parameter contain the list of browser (see below)
 ```json
 [
 {
@@ -101,8 +101,7 @@ You can edit the settings by going to Preferences -> Package Settings -> Bang Se
 
 ##Browser configuration
 
-The lib used to open a new tab is webbrowser.py. Only the first element of browsers_list will be used, the others are here to 
-allow quick change in your configuration file. The "default" value refer to the None settings in webbrowser.py corresponding to the default browser.
+The lib used to open a new tab is webbrowser.py. Only the first element of browsers_list will be used, the others are here to allow quick change in your configuration file. The "default" value refer to the None settings in webbrowser.py corresponding to the default browser.
 
 **THE FOLLOWING CONFIGURATION IS AT YOUR OWN RISK, let "default" if you have any doubt.**
 
@@ -118,9 +117,10 @@ import webbrowser; print(webbrowser._browsers)
 ###Register a browser in webbrowser.py
 
 Open a console : View > Show console
+
 And enter the following code to [register](https://docs.python.org/3/library/webbrowser.html#webbrowser.register) a browser. Here is a sample for windows, you have to define an alias and the correct path to the choosed browser.
 ```
-import webbrowser; webbrowser.register('google-chrome', None, webbrowser.BackgroundBrowser("C:\\Program Files (x86)\\Google\\Chrome\\Application\\chrome.exe")
+import webbrowser; webbrowser.register('google-chrome', None, webbrowser.BackgroundBrowser("C:\\Program Files (x86)\\Google\\Chrome\\Application\\chrome.exe"))
 ```
 
 ###Choose the browser for Bang-Search
