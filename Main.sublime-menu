@@ -15,13 +15,13 @@
                         [
                             {
                                 "command": "open_file",
-                                "args": {"file": "${packages}/bang-search/README.md"},
+                                "args": {"file": "${packages}/Bang Search/README.md"},
                                 "caption": "Readme"
                             },
                             { "caption": "-" },
                             {
                                 "command": "open_file",
-                                "args": {"file": "${packages}/bang-search/bang_search.sublime-settings"},
+                                "args": {"file": "${packages}/Bang Search/bang_search.sublime-settings"},
                                 "caption": "Settings – Default"
                             },
                             {
