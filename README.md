@@ -1,7 +1,7 @@
 Bang Search 
 =============
 
-**Version : 1.1.0**
+**Version : 1.1.1**
 
 This plugin for Sublime Text 3 allow to perform a web search from the currently selected text/word or from an input panel from **your predifined requests** in **one or several browser tabs**.
 
