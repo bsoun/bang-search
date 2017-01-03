@@ -145,7 +145,7 @@ class BangSearchInputCommand(sublime_plugin.TextCommand):
 
     def direct_done(self, arg):
         self.stringToSearch = arg
-        searchByBang(self.stringToSearch,self.bangToSearch,self.choosedBrowser)
+        searchByBang(self.stringToSearch,self.bangToSearch,self.searchDict,self.choosedBrowser)
 
     def child_done(self,index):
         if index == -1:
