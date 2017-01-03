@@ -2,7 +2,8 @@ Bang Search
 =============
 
 **Version : 1.1.2**
-Correction of bug.
+
+Bug Correction
 
 **Version : 1.1.1**
 
