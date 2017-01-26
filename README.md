@@ -1,6 +1,9 @@
 Bang Search 
 =============
 
+**Version : 1.2.0**
+Change in behaviour for the input search method. If you enter a multiline search, using <kbd>CTRL</kbd> + <kbd>ENTER</kbd> between lines, a distinct browser's window is opened, one for each of your line in the input box panel.
+
 **Version : 1.1.2**
 
 Bug Correction
