@@ -145,13 +145,17 @@ class BangSearchInputCommand(sublime_plugin.TextCommand):
 
     def direct_done(self, arg):
         self.stringToSearch = arg
-        searchByBang(self.stringToSearch,self.bangToSearch,self.searchDict,self.choosedBrowser)
+        for k in reversed(self.stringToSearch.splitlines()):
+            if len(k) !=0 :
+                searchByBang(k,self.bangToSearch,self.searchDict,self.choosedBrowser)
 
     def child_done(self,index):
         if index == -1:
             bang_warning(" Nothing to search !",self.silentError)
         else:
-            searchByBang(self.stringToSearch,self.bangList[index], self.searchDict,self.choosedBrowser)
+            for k in self.stringToSearch.splitlines():
+                if len(k) !=0 :
+                    searchByBang(k,self.bangList[index], self.searchDict,self.choosedBrowser)
 
     def on_cancel(self,arg):
         pass
